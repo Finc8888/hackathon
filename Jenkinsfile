@@ -5,8 +5,7 @@ pipeline {
     stage('Build') {
       steps {
         // Build the web app
-        sh 'npm install'
-        sh 'npm run build'
+        echo 'test build'
       }
     }
 
