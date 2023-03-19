@@ -19,7 +19,7 @@ pipeline {
         sh 'chmod +x /usr/local/bin/docker-compose'
 
         // Deploy the web app using Docker Compose
-        sh 'docker-compose up -d'
+        sh '/usr/local/bin/docker-compose up --build'
       }
     }
   }
