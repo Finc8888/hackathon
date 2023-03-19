@@ -11,8 +11,6 @@ pipeline {
     }
 
     stage('Deploy') {
-      environment {
-      }
       steps {
         // Install Docker Compose
         sh "ls /usr/local/bin/"
