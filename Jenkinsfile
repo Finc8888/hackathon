@@ -2,7 +2,7 @@ node {
     // v1
 	checkout scm
 
-	stage('Build Base  application') {
+	stage('Build Base  application1') {
 		echo "*** Build Base  application ***"
         sh '''
             pwd
