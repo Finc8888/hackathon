@@ -4,19 +4,15 @@ services:
     db:
         build: postgres_db
         container_name: db-c
-        #ports:
-        #  - 5432:5432
+        ports:
+          - "5433:5432"
+
         environment:
         - POSTGRES_DB=${POSTGRES_DB}
         - POSTGRES_USER=${POSTGRES_USER}
         - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
         volumes:
           - ./data/db_store:/var/lib/postgresql/data
-        healthcheck:
-          test: [ "CMD", "pg_isready", "-q", "-d", "${POSTGRES_DB}", "-U", "postgres" ]
-          timeout: 45s
-          interval: 10s
-          retries: 10
         networks:
           local-net:
               ipv4_address: 192.168.34.9
@@ -25,7 +21,6 @@ services:
         build: frontend
         volumes:
           - ./frontend:/app
-#        command: ["CMD", "nodemon", "--watch", "src", "--exec", "npm", "start"]
         container_name: web-c
         ports:
           - 80:80
@@ -33,6 +28,10 @@ services:
           - api
         networks:
           local-net:
+#        ports:
+#          - 3000:3000
+        environment:
+          - CHOKIDAR_USEPOLLING=true
 
     api:
         restart: always
@@ -47,8 +46,7 @@ services:
         ports:
           - 8000:8000
         depends_on:
-          db:
-            condition: service_healthy
+          - db
         networks:
           local-net:
             ipv4_address: 192.168.34.10

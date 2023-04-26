@@ -22,7 +22,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.post("/login")
+@app.post("/api/login")
 def login(user = Body(...)):
     if user_handler.authenticate_user(user):
         return signJWT(user['email'])
@@ -30,7 +30,7 @@ def login(user = Body(...)):
         "error": "Wrong login details!"
     }
 
-@app.post("/register")
+@app.post("/api/register")
 def register(user = Body(...)):
     if user_handler.check_user(user):
         return {
@@ -39,7 +39,7 @@ def register(user = Body(...)):
     user_handler.add_user(user)
     return signJWT(user['email'])
 
-@app.post("/changePassword", dependencies=[Depends(JWTBearer())])
+@app.post("/api/changePassword", dependencies=[Depends(JWTBearer())])
 def changePassword(user = Body(...)):
     if user_handler.authenticate_user(user):
         user_handler.modify_user(user)

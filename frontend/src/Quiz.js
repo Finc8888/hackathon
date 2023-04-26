@@ -20,7 +20,7 @@ const useStyles = makeStyles({
     button: {
         background: 'linear-gradient(45deg, #2CB0CE 30%, #539EFF 90%)',
         width:'50%',
-        color: 'ffffff'
+        color: '#fff'
         //position: 'absolute',
         //top: '70%',
     },
